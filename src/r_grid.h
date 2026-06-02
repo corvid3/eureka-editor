@@ -92,7 +92,7 @@ public:
 	void LimitSize(int);
 
 	std::optional<int> GetLimit() {
-		if(not limit) return std::nullopt;
+		if(!limit) return std::nullopt;
 		return limit_size;
 	}
 
