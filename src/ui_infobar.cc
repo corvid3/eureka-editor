@@ -157,6 +157,7 @@ UI_InfoBar::UI_InfoBar(Instance &inst, int X, int Y, int W, int H, const char *l
 	limit->align(FL_ALIGN_INSIDE);
 	limit->callback(limit_callback, this);
 	limit->labelsize(16);
+	limit->setValue("0");
 
 	X = limit->x() + limit->w() + 10;
 
