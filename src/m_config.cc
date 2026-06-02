@@ -557,6 +557,22 @@ const opt_desc_t options[] =
 		&config::normal_small_col
 	},
 
+	{	"limit_col",
+		0,
+		OptFlag_preference,
+		"color for the limit box around the origin",
+		NULL,
+		&config::limit_col
+	},
+
+	{	"limit_thickness",
+		0,
+		OptFlag_preference,
+		"small color for the normal grid",
+		NULL,
+		&config::limit_thickness
+	},
+
 	{	"panel_gamma",
 		0,
 		OptFlag_preference,

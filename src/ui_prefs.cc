@@ -616,7 +616,7 @@ private:
 			// Only push a snapshot if something actually changed
 			if(before == after)
 				return;
-			
+
 			Snapshot s;
 			s.before = std::move(before);
 			s.after = std::move(after);
@@ -787,6 +787,9 @@ public:
 	Fl_Button *normal_main;
 	Fl_Button *normal_flat;
 	Fl_Button *normal_small;
+
+	Fl_Button *limit_color;
+	Fl_Choice *limit_thickness;
 
 	/* 3D Tab */
 
@@ -1103,6 +1106,17 @@ UI_Preferences::UI_Preferences(const opt_desc_t *options) :
 		  dotty_point->align(FL_ALIGN_RIGHT);
 		  dotty_point->callback((Fl_Callback*)color_callback, this);
 		  dotty_point->tooltip("dot color");
+		}
+
+		{ limit_color = new Fl_Button(150 + 0*55, 380, 45, 25, "Limit Box : ");
+		  limit_color->box(FL_BORDER_BOX);
+		  limit_color->align(FL_ALIGN_LEFT);
+		  limit_color->callback((Fl_Callback*)(color_callback), this);
+		  limit_color->tooltip("box color");
+		}
+		{ limit_thickness = new Fl_Choice(150 + 1*55, 380, 95, 25);
+		  limit_thickness->add("1|2");
+		  limit_thickness->tooltip("limit thickness");
 		}
 
 		o->end();
@@ -1581,6 +1595,9 @@ void UI_Preferences::LoadValues()
 	normal_flat ->color(config::normal_flat_col);
 	normal_small->color(config::normal_small_col);
 
+	limit_color->color(config::limit_col);
+	limit_thickness->value(config::limit_thickness);
+
 	/* 3D Tab */
 
 	config::render_pixel_aspect = clamp(25, config::render_pixel_aspect, 400);
@@ -1741,6 +1758,9 @@ void UI_Preferences::SaveValues()
 	config::normal_main_col  = (rgb_color_t) normal_main ->color();
 	config::normal_flat_col  = (rgb_color_t) normal_flat ->color();
 	config::normal_small_col = (rgb_color_t) normal_small->color();
+
+	config::limit_col = (rgb_color_t) limit_color->color();
+	config::limit_thickness = limit_thickness->value();
 
 	/* Nodes Tab */
 

@@ -82,6 +82,7 @@ rgb_color_t config::normal_flat_col  = rgbMake(60, 60, 120);
 rgb_color_t config::normal_small_col = rgbMake(60, 60, 120);
 
 rgb_color_t config::limit_col = rgbMake(200, 50, 50);
+int config::limit_thickness = 1;
 
 int config::highlight_line_info = (int)LINFO_Length;
 
@@ -428,6 +429,7 @@ void UI_Canvas::DrawMap()
 			RenderSector(n);
 	}
 
+
 	// draw the grid first since it's in the background
 	if (inst.grid.isShown())
 	{
@@ -437,6 +439,8 @@ void UI_Canvas::DrawMap()
 			DrawGrid_Dotty();
 	}
 
+	/* draw limit over the grid, so it isn't obscured,
+	 * but still before the linedefs. */
 	DrawLimit();
 
 	if (global::Debugging)
@@ -544,17 +548,20 @@ void UI_Canvas::DrawGrid_Normal()
 	DrawAxes(config::normal_axis_col);
 }
 
-void UI_Canvas::DrawLimit() {
+void UI_Canvas::DrawLimit()
+{
 	auto const size_opt = inst.grid.GetLimit();
 	if(!size_opt) return;
 	int const size = std::max((int)*size_opt / 2, 2);
 
 	RenderColor(config::limit_col);
+	/* 0..1 -> 1..2 */
+	RenderThickness(config::limit_thickness + 1);
 	DrawMapLine(-size, -size, size, -size);
 	DrawMapLine(size, -size, size, size);
 	DrawMapLine(size, size, -size, size);
 	DrawMapLine(-size, size, -size, -size);
-};
+}
 
 void UI_Canvas::DrawGrid_Dotty()
 {

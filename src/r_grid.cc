@@ -644,15 +644,16 @@ void grid::State::SetSnap(bool enable)
 	listener.gridRedrawMap();
 }
 
-void grid::State::SetLimit(bool enable) {
+void grid::State::SetLimit(bool enable)
+{
 	if(limit == enable) return;
 	limit = enable;
 	listener.gridRedrawMap();
 }
 
-void grid::State::LimitSize(int size) {
-	if(size == 0) throw std::runtime_error("invalid size in State::LimitSize");
-	limit_size = size;
+void grid::State::LimitSize(int size)
+{
+	limit_size = std::max(size, 2);
 	listener.gridRedrawMap();
 }
 

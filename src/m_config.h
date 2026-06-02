@@ -121,6 +121,7 @@ extern rgb_color_t normal_flat_col;
 extern rgb_color_t normal_small_col;
 
 extern rgb_color_t limit_col;
+extern int limit_thickness;
 
 extern int backup_max_files;
 extern int backup_max_space;
