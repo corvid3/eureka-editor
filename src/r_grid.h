@@ -23,6 +23,7 @@
 
 #include "m_vector.h"
 #include "m_strings.h"
+#include <optional>
 
 class Instance;
 
@@ -57,7 +58,7 @@ private:
 	bool snap = true;
 
 	bool limit = false;
-	unsigned limit_size = 0;
+	int limit_size = 0;
 
 	// if non-zero, new lines will be forced to have a certain ratio
 	int ratio = 0;
@@ -88,7 +89,12 @@ public:
 	void SetShown(bool enable);
 	void SetSnap (bool enable);
 	void SetLimit(bool enable);
-	void LimitSize(unsigned);
+	void LimitSize(int);
+
+	std::optional<int> GetLimit() {
+		if(not limit) return std::nullopt;
+		return limit_size;
+	}
 
 	void ToggleShown();
 	void ToggleSnap();

@@ -47,7 +47,7 @@ enum
 	OptFlag_hide = 1 << 4,
 };
 
-typedef std::variant<bool *, int *, rgb_color_t *, SString *, fs::path *, std::vector<SString> *, 
+typedef std::variant<bool *, int *, rgb_color_t *, SString *, fs::path *, std::vector<SString> *,
 					 std::vector<fs::path> *, std::nullptr_t> ArgData;
 
 struct opt_desc_t
@@ -119,6 +119,8 @@ extern rgb_color_t normal_axis_col;
 extern rgb_color_t normal_main_col;
 extern rgb_color_t normal_flat_col;
 extern rgb_color_t normal_small_col;
+
+extern rgb_color_t limit_col;
 
 extern int backup_max_files;
 extern int backup_max_space;

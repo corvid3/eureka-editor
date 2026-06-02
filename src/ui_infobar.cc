@@ -77,7 +77,6 @@ UI_InfoBar::UI_InfoBar(Instance &inst, int X, int Y, int W, int H, const char *l
 
 	X = mode->x() + mode->w() + 10;
 
-
 	Fl_Box *scale_lab = new Fl_Box(FL_NO_BOX, X, Y, 58, H, "Scale:");
 	scale_lab->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
 	scale_lab->labelsize(16);
@@ -88,13 +87,7 @@ UI_InfoBar::UI_InfoBar(Instance &inst, int X, int Y, int W, int H, const char *l
 	scale->callback(scale_callback, this);
 	scale->labelsize(16);
 
-	UI_DynIntInput* input = new UI_DynIntInput(X, Y, 58, H, "Limit:");
-	input->align(FL_ALIGN_INSIDE);
-	input->callback(limit_callback, this);
-	input->labelsize(16);
-
 	Fl_Button *sc_minus, *sc_plus;
-
 	sc_minus = new Fl_Button(X+60, Y+1, 24, H-2, "-");
 	sc_minus->callback(sc_minus_callback, this);
 	sc_minus->labelfont(FL_HELVETICA_BOLD);
@@ -107,6 +100,16 @@ UI_InfoBar::UI_InfoBar(Instance &inst, int X, int Y, int W, int H, const char *l
 
 	X = sc_plus->x() + sc_plus->w() + 12;
 
+	// X = scale->x() + scale->w() + 10;
+	Fl_Box* limit_lab = new Fl_Box(FL_NO_BOX, X, Y, 42, H, "Limit:");
+	limit_lab->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
+	limit_lab->labelsize(16);
+
+	UI_DynIntInput* limit = new UI_DynIntInput(X + 40, Y, 58, H, "Limit:");
+	limit->align(FL_ALIGN_INSIDE);
+	limit->callback(limit_callback, this);
+	limit->labelsize(16);
+	X = limit->x() + limit->w() + 10;
 
 	Fl_Box *gs_lab = new Fl_Box(FL_NO_BOX, X, Y, 42, H, "Grid:");
 	gs_lab->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);

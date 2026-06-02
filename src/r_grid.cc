@@ -650,7 +650,7 @@ void grid::State::SetLimit(bool enable) {
 	listener.gridRedrawMap();
 }
 
-void grid::State::LimitSize(unsigned size) {
+void grid::State::LimitSize(int size) {
 	if(size == 0) throw std::runtime_error("invalid size in State::LimitSize");
 	limit_size = size;
 	listener.gridRedrawMap();
