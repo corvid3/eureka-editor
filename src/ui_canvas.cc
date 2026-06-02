@@ -540,6 +540,7 @@ void UI_Canvas::DrawGrid_Normal()
 	DrawAxes(config::normal_axis_col);
 }
 
+void UI_Canvas::DrawLimit() {};
 
 void UI_Canvas::DrawGrid_Dotty()
 {

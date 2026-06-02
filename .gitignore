@@ -1,6 +1,9 @@
 /eureka
 Eureka.exe
 
+compile_commands.json
+.cache/
+
 lib_win32
 obj_win32
 obj_linux

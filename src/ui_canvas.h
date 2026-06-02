@@ -124,6 +124,7 @@ private:
 
 	void DrawGrid_Dotty();
 	void DrawGrid_Normal();
+	void DrawLimit();
 	void DrawAxes(Fl_Color col);
 
 	void DrawMapBounds();

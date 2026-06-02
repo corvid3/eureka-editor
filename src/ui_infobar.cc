@@ -20,6 +20,7 @@
 
 #include "Instance.h"
 #include "main.h"
+#include "ui_misc.h"
 #include "ui_window.h"
 
 #include "e_main.h"
@@ -32,6 +33,8 @@
 #include "r_render.h"
 #include "SideDef.h"
 #include "Vertex.h"
+#include <FL/Enumerations.H>
+#include <FL/Fl_Toggle_Button.H>
 
 
 #define SNAP_COLOR  (config::gui_scheme == 2 ? fl_rgb_color(255,96,0) : fl_rgb_color(255, 96, 0))
@@ -84,6 +87,11 @@ UI_InfoBar::UI_InfoBar(Instance &inst, int X, int Y, int W, int H, const char *l
 	scale->add(scale_options_str);
 	scale->callback(scale_callback, this);
 	scale->labelsize(16);
+
+	UI_DynIntInput* input = new UI_DynIntInput(X, Y, 58, H, "Limit:");
+	input->align(FL_ALIGN_INSIDE);
+	input->callback(limit_callback, this);
+	input->labelsize(16);
 
 	Fl_Button *sc_minus, *sc_plus;
 
@@ -253,7 +261,6 @@ void UI_InfoBar::grid_callback(Fl_Widget *w, void *data)
 		bar->inst.grid.ForceStep(new_step);
 }
 
-
 void UI_InfoBar::snap_callback(Fl_Widget *w, void *data)
 {
 	auto bar = static_cast<UI_InfoBar *>(data);
@@ -272,6 +279,15 @@ void UI_InfoBar::ratio_callback(Fl_Widget *w, void *data)
 	bar->inst.grid.configureRatio(ratio_lock->value(), false);
 }
 
+
+void UI_InfoBar::limit_callback(Fl_Widget* w, void* data) {
+	auto* bar = static_cast<UI_InfoBar*>(data);
+	auto* input = dynamic_cast<UI_DynIntInput*>(w);
+	int x = atoi(input->value());
+	if(x == 0) bar->inst.grid.SetLimit(false);
+	bar->inst.grid.LimitSize(x);
+	bar->inst.grid.SetLimit(true);
+}
 
 //------------------------------------------------------------------------
 

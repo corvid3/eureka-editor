@@ -28,7 +28,7 @@ class Instance;
 
 namespace grid
 {
-static const int values[] = 
+static const int values[] =
 {
 	1024, 512, 256, 192, 128, 64, 32, 16, 8, 4, 2,
 	-1	// off
@@ -55,6 +55,9 @@ private:
 
 	// if true, new and moved objects are forced to be on the grid
 	bool snap = true;
+
+	bool limit = false;
+	unsigned limit_size = 0;
 
 	// if non-zero, new lines will be forced to have a certain ratio
 	int ratio = 0;
@@ -84,6 +87,8 @@ public:
 
 	void SetShown(bool enable);
 	void SetSnap (bool enable);
+	void SetLimit(bool enable);
+	void LimitSize(unsigned);
 
 	void ToggleShown();
 	void ToggleSnap();
@@ -168,7 +173,7 @@ public:
 	{
 		return Scale;
 	}
-	
+
 	bool parseUser(const std::vector<SString> &tokens);
 	void writeUser(std::ostream &os) const;
 
@@ -176,7 +181,7 @@ private:
 	void RawSetStep(int i);
 	void RawSetScale(int i);
 	void RawSetShown(bool new_shown);
-	
+
 	void configureGrid(int step, bool shown);
 	void configureSnap(bool snap);
 

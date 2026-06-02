@@ -29,6 +29,7 @@
 #include "r_grid.h"
 #include "m_config.h"
 #include "sys_debug.h"
+#include <stdexcept>
 
 // config items
 int  config::grid_default_size = 64;
@@ -640,6 +641,18 @@ void grid::State::SetSnap(bool enable)
 		SetShown(snap);
 
 	listener.gridUpdateSnap();
+	listener.gridRedrawMap();
+}
+
+void grid::State::SetLimit(bool enable) {
+	if(limit == enable) return;
+	limit = enable;
+	listener.gridRedrawMap();
+}
+
+void grid::State::LimitSize(unsigned size) {
+	if(size == 0) throw std::runtime_error("invalid size in State::LimitSize");
+	limit_size = size;
 	listener.gridRedrawMap();
 }
 

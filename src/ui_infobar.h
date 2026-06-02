@@ -25,6 +25,7 @@
 
 class Fl_Menu_Button;
 class Fl_Toggle_Button;
+class UI_DynIntInput;
 
 class UI_InfoBar : public Fl_Group
 {
@@ -38,8 +39,8 @@ private:
 	Fl_Menu_Button *grid_size;
 	Fl_Menu_Button *sec_rend;
 	Fl_Menu_Button *ratio_lock;
-
 	Fl_Toggle_Button *grid_snap;
+	UI_DynIntInput* limit;
 
 public:
 	// FLTK virtual method for handling input events.
@@ -72,6 +73,8 @@ private:
 	static void grid_callback(Fl_Widget *, void *);
 	static void snap_callback(Fl_Widget *, void *);
 	static void ratio_callback(Fl_Widget *, void *);
+
+	static void limit_callback(Fl_Widget*, void*);
 
 	Instance &inst;
 };
