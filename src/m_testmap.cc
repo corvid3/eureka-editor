@@ -617,10 +617,11 @@ void Instance::CMD_TestMap()
 		}
 
 		Status_Set("TESTING MAP");
+
+		Fl::wait(0.5);
 		if(main_win)
 			main_win->redraw();
-		Fl::wait(0.1);
-		Fl::wait(0.1);
+		Fl::wait(0.5);
 
 #ifdef _WIN32
 		testMapOnWindows(*this, *info);
@@ -630,10 +631,10 @@ void Instance::CMD_TestMap()
 		else
 			testMapOnPOSIX(*this, *info);
 #endif
+		Fl::wait(0.5);
 		if(main_win)
 			main_win->redraw();
-		Fl::wait(0.1);
-		Fl::wait(0.1);
+		Fl::wait(0.5);
 
 	}
 	catch(const std::runtime_error &e)
