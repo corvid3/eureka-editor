@@ -100,17 +100,6 @@ UI_InfoBar::UI_InfoBar(Instance &inst, int X, int Y, int W, int H, const char *l
 
 	X = sc_plus->x() + sc_plus->w() + 12;
 
-	// X = scale->x() + scale->w() + 10;
-	Fl_Box* limit_lab = new Fl_Box(FL_NO_BOX, X, Y, 42, H, "Limit:");
-	limit_lab->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
-	limit_lab->labelsize(16);
-
-	UI_DynIntInput* limit = new UI_DynIntInput(X + 40, Y, 58, H, "Limit:");
-	limit->align(FL_ALIGN_INSIDE);
-	limit->callback(limit_callback, this);
-	limit->labelsize(16);
-	X = limit->x() + limit->w() + 10;
-
 	Fl_Box *gs_lab = new Fl_Box(FL_NO_BOX, X, Y, 42, H, "Grid:");
 	gs_lab->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
 	gs_lab->labelsize(16);
@@ -124,7 +113,6 @@ UI_InfoBar::UI_InfoBar(Instance &inst, int X, int Y, int W, int H, const char *l
 
 	X = grid_size->x() + grid_size->w() + 12;
 
-
 	grid_snap = new Fl_Toggle_Button(X+4, Y, 72, H);
 	grid_snap->value(inst.grid.snaps() ? 1 : 0);
 	grid_snap->color(FREE_COLOR);
@@ -135,7 +123,6 @@ UI_InfoBar::UI_InfoBar(Instance &inst, int X, int Y, int W, int H, const char *l
 	UpdateSnapText();
 
 	X = grid_snap->x() + grid_snap->w() + 12;
-
 
 	Fl_Box *ratio_lab = new Fl_Box(FL_NO_BOX, X, Y, 52, H, "Ratio:");
 	ratio_lab->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
@@ -160,8 +147,18 @@ UI_InfoBar::UI_InfoBar(Instance &inst, int X, int Y, int W, int H, const char *l
 	sec_rend->callback(rend_callback, this);
 	sec_rend->labelsize(16);
 
-	X = sec_rend->x() + rend_lab->w() + 10;
+	X = sec_rend->x() + sec_rend->w() + 10;
 
+	Fl_Box* limit_lab = new Fl_Box(FL_NO_BOX, X, Y, 42, H, "Limit:");
+	limit_lab->align(FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
+	limit_lab->labelsize(16);
+
+	UI_DynIntInput* limit = new UI_DynIntInput(X + 40, Y, 58, H, "Limit:");
+	limit->align(FL_ALIGN_INSIDE);
+	limit->callback(limit_callback, this);
+	limit->labelsize(16);
+
+	X = limit->x() + limit->w() + 10;
 
 	resizable(NULL);
 
@@ -287,7 +284,12 @@ void UI_InfoBar::limit_callback(Fl_Widget* w, void* data) {
 	auto* bar = static_cast<UI_InfoBar*>(data);
 	auto* input = dynamic_cast<UI_DynIntInput*>(w);
 	int x = atoi(input->value());
-	if(x == 0) bar->inst.grid.SetLimit(false);
+	if(x == 0)
+	{
+		bar->inst.grid.SetLimit(false);
+		return;
+	}
+
 	bar->inst.grid.LimitSize(x);
 	bar->inst.grid.SetLimit(true);
 }
